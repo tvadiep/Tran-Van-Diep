@@ -11,17 +11,31 @@
 <body>
 
   <!-- You may reorganise the whole HTML, as long as your form achieves the same effect. -->
-  <form onsubmit="return !1">
-    <h5>Swap</h5>
-    <label for="input-amount">Amount to send</label>
-    <input id="input-amount" />
+  <div id="form-container">
+    <form onsubmit="return !1" id="control-form">
+      
+      <div class="token-container">
+   
+        <select class="token-selector">
 
-    <label for="output-amount">Amount to receive</label>
-    <input id="output-amount" />
+        </select>
+        <input id="input-amount" class="text-input" />
+    
+      </div>
 
-    <button>CONFIRM SWAP</button>
-  </form>
-  <script src="script.js"></script>
+      <div class="token-container">
+        <select class="token-selector">
+
+        </select>
+        <label for="output-amount">Amount to receive</label>
+        <input id="target-amount" class="text-input" />
+      </div>    
+    
+      
+      <button id="swap-button">CONFIRM SWAP</button>
+    </form>
+  </div>
+  <script src="script.js" async></script>
 </body>
 
 </html>
