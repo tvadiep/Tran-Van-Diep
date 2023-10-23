@@ -1,65 +1,41 @@
-console.log("hello");
+/**
+ * CSS Manipulating
+ */
+import { fetchPrice, getData } from "./utils.js";
+import { populateSelector, addStyleToListItem } from "./domManipulation.js";
 
-const TOKEN_INFO_ENDPOINT = "https://interview.switcheo.com/prices.json";
+const tokenExchange = (data) => {
+  const [selector1, selector2] = document.querySelectorAll(".selected");
+  const baseToken = selector1.innerText;
+  const targetToken = selector2.innerText;
+  const errorMessageEle = document.getElementById("form-error-message");
 
-const fetchPrice = async () => {
-  try {
-    const response = await fetch(TOKEN_INFO_ENDPOINT);
-
-    if (!response.ok) {
-      throw new Error("Network response was not OK");
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(
-      "There was a problem when fetching token information:",
-      error
-    );
-    return null; // You can handle the error appropriately and return a value
+  if (baseToken === "Select" || targetToken === "Select") {
+    errorMessageEle.classList.add("error-on");
+    return;
   }
-};
 
-async function getData() {
-  try {
-    const data = await fetchPrice();
-    return data;
-  } catch (error) {
-    throw new Error("Error getting data: " + error.message);
-  }
-}
+  const baseTokenPrice = data.filter((token) => token.currency === baseToken)[0]
+    ?.price;
+  const targetTokenPrice = data.filter(
+    (token) => token.currency === targetToken
+  )[0]?.price;
+  const ratio = baseTokenPrice / targetTokenPrice;
 
-async function populateSelector() {
-  const tokenSelectors = document.getElementsByClassName("token-selector");
-
-  for (const selector of tokenSelectors) {
-    selector.innerHTML = "";
-    const data = await getData();
-
-    data.forEach((token) => {
-      const option = document.createElement("option");
-      option.value = token.currency;
-      option.textContent = token.currency;
-      selector.appendChild(option);
-    });
-  }
-}
-populateSelector();
-
-async function main() {
   const sentAmount = document.getElementById("input-amount").value;
   const outputBox = document.getElementById("target-amount");
-  outputBox.value = sentAmount;
+  outputBox.value = Number((sentAmount / ratio).toFixed(6));
+  errorMessageEle.classList.remove("error-on");
+};
 
-  console.log(sentAmount);
-  try {
-    const priceData = await fetchPrice();
-    console.log(priceData);
-  } catch (error) {
-    console.error("There was an error in the main function:", error);
-  }
+async function main() {
+  await fetchPrice();
+  const data = getData();
+  populateSelector(data);
+  addStyleToListItem();
+
+  const swapButton = document.getElementById("swap-button");
+  swapButton.addEventListener("click", () => tokenExchange(data));
 }
 
-const swapButton = document.getElementById("swap-button");
-swapButton.addEventListener("click", main);
+main();

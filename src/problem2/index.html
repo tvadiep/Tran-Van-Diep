@@ -13,29 +13,44 @@
   <!-- You may reorganise the whole HTML, as long as your form achieves the same effect. -->
   <div id="form-container">
     <form onsubmit="return !1" id="control-form">
-      
-      <div class="token-container">
-   
-        <select class="token-selector">
-
-        </select>
-        <input id="input-amount" class="text-input" />
-    
+      <div class="form-header">
+        <h1 class="rainbow-text">Coinnection Xchange</h1>
+        <p class="slogan-text">Swap with Confidence!</p>
       </div>
-
-      <div class="token-container">
-        <select class="token-selector">
-
-        </select>
-        <label for="output-amount">Amount to receive</label>
-        <input id="target-amount" class="text-input" />
-      </div>    
-    
       
+      <div class="form-body">
+        <div class="token-container">
+          <div class="dropdown">
+            <div class="select">
+              <span class="selected">Select</span>
+              <div class="caret"></div>
+            </div>
+            <ul class="menu">
+            </ul>
+          </div>
+          <input id="input-amount" type="number" class="text-input base" />
+        </div>
+  
+        <div class="token-container">
+          <div class="dropdown">
+            <div class="select">
+              <span class="selected">Select</span>
+              <div class="caret"></div>
+            </div>
+            <ul class="menu">
+            </ul>
+          </div>
+          <input id="target-amount" type="text" class="text-input target" />
+        </div>
+        <div class="error-message-container">
+          <p id="form-error-message">You need to choose your token and the target token then provide your quantity!</p>
+        </div>
+      </div>
       <button id="swap-button">CONFIRM SWAP</button>
     </form>
+
   </div>
-  <script src="script.js" async></script>
+  <script type="module" src="script.js" async></script>
 </body>
 
 </html>
