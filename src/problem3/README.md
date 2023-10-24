@@ -1,0 +1,2 @@
+## TIP
+#### There're 2 files: `problem.tsx` and `solutions.tsx`. In the `problem.tsx` file, you can see my comments on the code. The `solutions.tsx` file is the result of my work. If it's hard to review, please refer to this link: https://docs.google.com/document/d/1vZBn1CZxsBLLuy6RlRFb1qeWMbaUGheg0TV2JNbRhu8/edit?usp=sharing
